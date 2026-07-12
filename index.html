@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="javascript.js"></script>
+<link rel="stylesheet" href="styles.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brawl Stats</title>
+</head>
+
+<body>
+<div class="container">
+  <h1>Brawl Stats</h1>
+  <div class="input-container">
+    <label for="playerTag">Player Tag:</label>
+    <input type="text" id="playerTag" placeholder="Enter player tag" maxlength="10" value="2QRVLCGGR">
+    <button id="fetchButton" onclick="getPlayerData()">Fetch Stats</button>
+  </div>
+  <div id="statsContainer"></div>
+
+</div>
+</body>
+</html>
