@@ -1,57 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="styles.css">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brawl Stats</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<script>
-  const BRAWL_API = "https://brawl-stats-backend-wxvo.onrender.com/api";
-  let playerData = null;
-
-  function getPlayerData() {
-  const playerTag = document.getElementById("playerTag").value.trim();
-  const url = `${BRAWL_API}/player/${playerTag}`;
-  console.log("Player Tag:", playerTag);
-  fetch(url)  
-    .then(response => response.json())
-    .then(data => {
-      console.log("Player Data:", data);
-      playerData = data;
-    })
-    .catch(error => {
-      console.error("Error fetching player data:", error);
-    });
-}
-
-function displayPlayerData() {
-  if (!playerData) {
-    console.error("No player data available to display.");
-    return;
-  }
-
-  const playerInfoDiv = document.getElementById("playerInfo");
-  playerInfoDiv.innerHTML = `
-    <h2>Player Info</h2>
-    <p>Name: ${playerData.name}</p>
-    <p>Tag: ${playerData.tag}</p>
-    <p>Trophies: ${playerData.trophies}</p>
-    <p>Highest Trophies: ${playerData.highestTrophies}</p>
-    <p>Level: ${playerData.level}</p>
-  `;
-}   
-</script>
 <body>
-<div class="container">
-  <h1>Brawl Stats</h1>
-  <div class="input-container">
-    <label for="playerTag">Player Tag:</label>
-    <input type="text" id="playerTag" placeholder="Enter player tag" maxlength="10" value="2QRVLCGGR">
-    <button id="fetchButton" onclick="getPlayerData()">Fetch Stats</button>
+  <div class="container">
+    <h1>Brawl Stats</h1>
+    <div class="input-container">
+      <input type="text" id="playerTag" placeholder="Enter player tag" maxlength="10" value="2QRVLCGGR">
+      <button id="fetchButton" onclick="getPlayerData()">Fetch Stats</button>
+    </div>
+    <div id="playerInfo"></div>
+    <div id="gameStats"></div>
+    <div id="collectibles"></div>
   </div>
-  <div id="playerInfo"></div>
-  <div id="statsContainer"></div>
-</div>
+  <script src="./javascript.js"></script>
 </body>
 </html>
