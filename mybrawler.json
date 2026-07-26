@@ -5,24 +5,24 @@
   "icon": {
     "id": 28000682
   },
-  "trophies": 41521,
-  "highestTrophies": 41521,
-  "totalPrestigeLevel": 23,
-  "expLevel": 124,
-  "expPoints": 80415,
+  "trophies": 42002,
+  "highestTrophies": 42002,
+  "totalPrestigeLevel": 24,
+  "expLevel": 125,
+  "expPoints": 81272,
   "isQualifiedFromChampionshipChallenge": false,
-  "3vs3Victories": 3500,
-  "soloVictories": 751,
-  "duoVictories": 535,
+  "3vs3Victories": 3538,
+  "soloVictories": 763,
+  "duoVictories": 537,
   "bestRoboRumbleTime": 3,
   "bestTimeAsBigBrawler": 0,
-  "rankedSeasonId": 46,
-  "rankedRank": 10,
-  "rankedRankName": "DIAMOND I",
-  "rankedElo": 3157,
-  "highestSeasonRankedRank": 10,
-  "highestSeasonRankedRankName": "DIAMOND I",
-  "highestSeasonRankedElo": 3157,
+  "rankedSeasonId": 47,
+  "rankedRank": 4,
+  "rankedRankName": "SILVER I",
+  "rankedElo": 970,
+  "highestSeasonRankedRank": 4,
+  "highestSeasonRankedRankName": "SILVER I",
+  "highestSeasonRankedElo": 970,
   "highestAllTimeRankedRank": 14,
   "highestAllTimeRankedRankName": "MYTHIC II",
   "highestAllTimeRankedElo": 5060,
@@ -244,8 +244,8 @@
         }
       ],
       "buffies": {
-        "gadget": false,
-        "starPower": false,
+        "gadget": true,
+        "starPower": true,
         "hyperCharge": false
       }
     },
@@ -270,7 +270,12 @@
         }
       ],
       "gears": [],
-      "starPowers": [],
+      "starPowers": [
+        {
+          "id": 23000156,
+          "name": "ROBO RETREAT"
+        }
+      ],
       "hyperCharges": [
         {
           "id": 23000776,
@@ -280,7 +285,7 @@
       "buffies": {
         "gadget": false,
         "starPower": false,
-        "hyperCharge": false
+        "hyperCharge": true
       }
     },
     {
@@ -288,10 +293,10 @@
       "name": "SPIKE",
       "power": 11,
       "rank": 2,
-      "trophies": 332,
-      "highestTrophies": 332,
+      "trophies": 390,
+      "highestTrophies": 390,
       "prestigeLevel": 0,
-      "currentWinStreak": 7,
+      "currentWinStreak": 10,
       "maxWinStreak": 14,
       "skin": {
         "id": 29000010,
@@ -507,12 +512,12 @@
       "id": 16000009,
       "name": "DYNAMIKE",
       "power": 11,
-      "rank": 4,
-      "trophies": 943,
-      "highestTrophies": 943,
-      "prestigeLevel": 0,
-      "currentWinStreak": 6,
-      "maxWinStreak": 6,
+      "rank": 5,
+      "trophies": 1020,
+      "highestTrophies": 1020,
+      "prestigeLevel": 1,
+      "currentWinStreak": 10,
+      "maxWinStreak": 10,
       "skin": {
         "id": 29001050,
         "name": "ROMANTIC DYNAMIKE"
@@ -845,10 +850,10 @@
       "name": "PAM",
       "power": 11,
       "rank": 5,
-      "trophies": 1009,
+      "trophies": 1004,
       "highestTrophies": 1009,
       "prestigeLevel": 1,
-      "currentWinStreak": 3,
+      "currentWinStreak": 0,
       "maxWinStreak": 10,
       "skin": {
         "id": 29000556,
@@ -1026,24 +1031,39 @@
     {
       "id": 16000020,
       "name": "FRANK",
-      "power": 9,
+      "power": 11,
       "rank": 3,
-      "trophies": 500,
-      "highestTrophies": 511,
+      "trophies": 533,
+      "highestTrophies": 533,
       "prestigeLevel": 0,
-      "currentWinStreak": 0,
-      "maxWinStreak": 0,
+      "currentWinStreak": 3,
+      "maxWinStreak": 3,
       "skin": {
-        "id": 29000042,
-        "name": "FRANK"
+        "id": 29000829,
+        "name": "PARASOL FRANK"
       },
       "gadgets": [
         {
           "id": 23000261,
           "name": "ACTIVE NOISE CANCELING"
+        },
+        {
+          "id": 23000351,
+          "name": "IRRESISTIBLE ATTRACTION"
         }
       ],
-      "gears": [],
+      "gears": [
+        {
+          "id": 62000001,
+          "name": "HEALTH",
+          "level": 3
+        },
+        {
+          "id": 62000004,
+          "name": "SHIELD",
+          "level": 3
+        }
+      ],
       "starPowers": [
         {
           "id": 23000153,
@@ -1096,11 +1116,11 @@
       "name": "TICK",
       "power": 11,
       "rank": 3,
-      "trophies": 547,
-      "highestTrophies": 547,
+      "trophies": 632,
+      "highestTrophies": 632,
       "prestigeLevel": 0,
-      "currentWinStreak": 2,
-      "maxWinStreak": 2,
+      "currentWinStreak": 6,
+      "maxWinStreak": 6,
       "skin": {
         "id": 29000190,
         "name": "KING CRAB TICK"
@@ -1273,10 +1293,10 @@
       "name": "BIBI",
       "power": 11,
       "rank": 5,
-      "trophies": 1009,
+      "trophies": 1004,
       "highestTrophies": 1009,
       "prestigeLevel": 1,
-      "currentWinStreak": 6,
+      "currentWinStreak": 0,
       "maxWinStreak": 7,
       "skin": {
         "id": 29001132,
@@ -1347,7 +1367,12 @@
         }
       ],
       "gears": [],
-      "starPowers": [],
+      "starPowers": [
+        {
+          "id": 23000168,
+          "name": "BOOSTED BOOSTER"
+        }
+      ],
       "hyperCharges": [
         {
           "id": 23000854,
@@ -1605,7 +1630,7 @@
       "buffies": {
         "gadget": false,
         "starPower": false,
-        "hyperCharge": false
+        "hyperCharge": true
       }
     },
     {
@@ -1647,10 +1672,10 @@
       "name": "GALE",
       "power": 11,
       "rank": 4,
-      "trophies": 869,
-      "highestTrophies": 869,
+      "trophies": 902,
+      "highestTrophies": 902,
       "prestigeLevel": 0,
-      "currentWinStreak": 3,
+      "currentWinStreak": 5,
       "maxWinStreak": 9,
       "skin": {
         "id": 29001068,
@@ -1768,10 +1793,10 @@
       "name": "SURGE",
       "power": 11,
       "rank": 3,
-      "trophies": 617,
-      "highestTrophies": 617,
+      "trophies": 698,
+      "highestTrophies": 701,
       "prestigeLevel": 0,
-      "currentWinStreak": 2,
+      "currentWinStreak": 0,
       "maxWinStreak": 11,
       "skin": {
         "id": 29000689,
@@ -1817,8 +1842,8 @@
       ],
       "buffies": {
         "gadget": true,
-        "starPower": false,
-        "hyperCharge": false
+        "starPower": true,
+        "hyperCharge": true
       }
     },
     {
@@ -1859,10 +1884,10 @@
       "name": "AMBER",
       "power": 11,
       "rank": 3,
-      "trophies": 544,
-      "highestTrophies": 546,
+      "trophies": 580,
+      "highestTrophies": 580,
       "prestigeLevel": 0,
-      "currentWinStreak": 0,
+      "currentWinStreak": 2,
       "maxWinStreak": 12,
       "skin": {
         "id": 29001128,
@@ -2387,10 +2412,10 @@
       "name": "MEG",
       "power": 11,
       "rank": 3,
-      "trophies": 582,
-      "highestTrophies": 582,
+      "trophies": 630,
+      "highestTrophies": 630,
       "prestigeLevel": 0,
-      "currentWinStreak": 4,
+      "currentWinStreak": 3,
       "maxWinStreak": 32,
       "skin": {
         "id": 29000360,
@@ -2432,7 +2457,7 @@
       ],
       "buffies": {
         "gadget": true,
-        "starPower": false,
+        "starPower": true,
         "hyperCharge": false
       }
     },
@@ -3054,11 +3079,11 @@
       "name": "MICO",
       "power": 11,
       "rank": 1,
-      "trophies": 0,
-      "highestTrophies": 0,
+      "trophies": 40,
+      "highestTrophies": 40,
       "prestigeLevel": 0,
-      "currentWinStreak": 0,
-      "maxWinStreak": 0,
+      "currentWinStreak": 4,
+      "maxWinStreak": 4,
       "skin": {
         "id": 29000746,
         "name": "MACARON MICO"
@@ -3506,7 +3531,12 @@
       "gadgets": [],
       "gears": [],
       "starPowers": [],
-      "hyperCharges": [],
+      "hyperCharges": [
+        {
+          "id": 23001055,
+          "name": "THE LAST RULEBENDER"
+        }
+      ],
       "buffies": {
         "gadget": false,
         "starPower": false,
@@ -3601,7 +3631,12 @@
       },
       "gadgets": [],
       "gears": [],
-      "starPowers": [],
+      "starPowers": [
+        {
+          "id": 23000929,
+          "name": "THE CROWD GOES MILD"
+        }
+      ],
       "hyperCharges": [
         {
           "id": 23001054,
@@ -3901,7 +3936,7 @@
     {
       "id": 16000105,
       "name": "STARR NOVA",
-      "power": 1,
+      "power": 11,
       "rank": 1,
       "trophies": 0,
       "highestTrophies": 0,
@@ -3960,7 +3995,12 @@
           "name": "TOSS UP"
         }
       ],
-      "hyperCharges": [],
+      "hyperCharges": [
+        {
+          "id": 23001431,
+          "name": "BOWLING BOLT"
+        }
+      ],
       "buffies": {
         "gadget": false,
         "starPower": false,

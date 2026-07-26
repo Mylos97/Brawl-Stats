@@ -1,0 +1,23 @@
+export const brawlersWithBuffies = new Set([
+  "SHELLY",
+  "COLT",
+  "SPIKE",
+  "BIBI",
+  "CROW",
+  "BULL",
+  "EMZ",
+  "FRANK",
+  "MORTIS",
+  "BO",
+  "NITA",
+  "LEON",
+  "EDGAR",
+  "COLETTE",
+  "GRIFF",
+  "BROCK",
+  "8-BIT",
+  "RICO",
+  "MEG",
+  "MAX",
+  "SURGE"
+]);

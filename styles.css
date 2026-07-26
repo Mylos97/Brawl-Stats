@@ -1,13 +1,52 @@
+:root {
+  --color-starpower : #ffef00;
+  --color-gadget :  #32c12c ;
+  --color-hypercharge :  #7f4fc9;
+  --color-gear :   #00bcd9;
+  --color-buffies :  #3e49bb;
+  --color-brawlers :  #5f7d8e;
+}
+
+
+.progress-bar-color-starpower {
+  accent-color: var(--color-starpower);
+}
+
+.progress-bar-color-gadget {
+  accent-color: var(--color-gadget);
+}
+
+.progress-bar-color-hypercharge {
+  accent-color: var(--color-hypercharge);
+}
+
+.progress-bar-color-gear {
+  accent-color: var(--color-gear);
+}
+
+.progress-bar-color-buffies {
+  accent-color: var(--color-buffies);
+}
+
+.progress-bar-color-brawlers {
+  accent-color: var(--color-brawlers);
+}
+
+html {
+  min-height: 100%;
+  background-color: #05080f;
+}
+
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #1c2a49 0%, #0a1224 55%, #05080f 100%);
   color: #f0f7ff;
   min-height: 100vh;
-}
-
-html, body {
-  height: 100%;
+  background: radial-gradient(circle at top, #1c2a49 0%, #0a1224 55%, #05080f 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
 }
 
 .container {
