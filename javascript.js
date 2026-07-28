@@ -2,12 +2,20 @@ import { brawlersWithBuffies } from "./buffies.js";
 
 let playerData = null;
 let battleStats = null;
-let url = null
+let url = "http://127.0.0.1";
+let brawlerChart;
+let gamemodeChart;
+
+window.onload = function() {
+  fetchData();
+};
 
 async function fetchData() {
     try {
-        const tag = document.getElementById("playerTag").value;
-        const playerResponse = await fetch( `${url}/api/player/${tag}`);
+        const params = new URLSearchParams(window.location.search);
+        const playerTag = params.get("tag");
+
+        const playerResponse = await fetch(`${url}/api/player/${playerTag}`);
 
         if (!playerResponse.ok) {
             throw new Error("Could not load one or more data files.");
@@ -18,29 +26,97 @@ async function fetchData() {
         console.log(playerDataResult)
         playerData = playerDataResult["accountInfo"];
         battleStats = playerDataResult["battleLogs"];
-        displayPlayerData();
+        displayPlayerData(playerTag);
 
     } catch (error) {
         console.error("Error loading player data:", error);
     }
 }
 
-async function getPlayerData() {
-    await fetchData();
+function createTopBrawlerChart() {
+    brawlerChart = new Chart(document.getElementById("topBrawlersChart"), {
+        type: "bar",
+        data: {
+            labels: battleStats.top_brawlers.map(b => b.brawler),
+            datasets: [{
+                label: "Games Played",
+                data: battleStats.top_brawlers.map(b => b.games),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+}
+
+function createTopGamesModesChart() {
+    gamemodeChart = new Chart(document.getElementById("topGamemodesChart"), {
+        type: "bar",
+        data: {
+            labels: battleStats.top_gamemodes.map(g => g.gamemode),
+            datasets: [{
+                label: "Games Played",
+                data: battleStats.top_gamemodes.map(g => g.games),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+}
+
+function cleanUpcharts() {
+    if (brawlerChart) brawlerChart.destroy();
+    if (gamemodeChart) gamemodeChart.destroy();
+}
+
+function createCharts() {
+    createTopBrawlerChart();
+    createTopGamesModesChart();
 }
 
 function displayPlayerData() {
+    const cardshowCase = document.getElementById("cardShowcase");
+
+    cleanUpcharts()
+
     if (!playerData) {
+        cardshowCase.innerHTML = "";
         console.error("No player data available to display.");
         return;
     }
 
-    const playerInfoDiv = document.getElementById("playerInfo");
-    const collectiblesDiv = document.getElementById("collectibles");
-    const gameStatsDiv = document.getElementById("gameStats");
-    const battleStatsDiv = document.getElementById("battleStats");
-    const playerTagInput = document.getElementById("playerTag");
-    const selectedPlayerTag = (playerTagInput?.value || playerData.tag || "").trim();
+    const selectedPlayerTag = (playerData.tag || "").trim();
 
     const allBrawlersLength = 105;
     const brawlers = playerData.brawlers || [];
@@ -78,6 +154,8 @@ function displayPlayerData() {
           <div><strong>Club</strong><span>${playerData.club?.name || "No club"}</span></div>
           <div><strong>Average Trophies per Brawler</strong><span>${averageTrophies}</span></div>
           <div><strong>Total Prestige</strong><span>${totalPrestige}</span></div>
+          <div><strong>3vs3Victories</strong><span>${playerData["3vs3Victories"] || 0}</span></div>
+          <div><strong>Showdown Victories</strong><span>${playerData["soloVictories"] || 0}</span></div>
         </div>
       </div>
     `;
@@ -122,24 +200,19 @@ function displayPlayerData() {
 
     const gameStatsHtml = `
       <div class="card">
-        <h2 class="card-title">Game Stats</h2>
+        <h2 class="card-title">Ranked Stats</h2>
         <div class="info-grid">
-          <div><strong>3vs3Victories</strong><span>${playerData["3vs3Victories"] || 0}</span></div>
-          <div><strong>Showdown Victories</strong><span>${playerData["soloVictories"] || 0}</span></div>
           <div><strong>Current Ranked Elo</strong><span>${playerData.rankedElo || 0}</span></div>
           <div><strong>Current Ranked Name</strong><span>${playerData["highestSeasonRankedRankName"] || 0}</span></div>
           <div><strong>Top Ranked Elo</strong><span>${playerData["highestAllTimeRankedElo"] || 0}</span></div>
           <div><strong>Top Ranked Name</strong><span>${playerData["highestAllTimeRankedRankName"] || 0}</span></div>
-          <div><strong>Recent Wins</strong><span>${battleStats.wins}</span></div>
-          <div><strong>Recent Losses</strong><span>${battleStats.losses}</span></div>
-          <div><strong>Recent Win Rate</strong><span>${battleStats.winRate}%</span></div>
         </div>
       </div>
     `;
 
     const battleStatsHtml = `
-  <div class="card">
-    <h2 class="card-title">Battle Statistics</h2>
+    <div class="card">
+        <h2 class="card-title">Tracked Battle Statistics</h2>
 
     <div class="info-grid">
       <div>
@@ -167,85 +240,20 @@ function displayPlayerData() {
         <span>${battleStats.trophy_change || 0}</span>
       </div>
     </div>
-  </div>
-`;
+  </div>`;
 
-const favoritesHtml = `
-  <div class="card">
-    <h2 class="card-title">Favorites</h2>
+    const chartsHtml = `
+        <div class="card">
+            <h2 class="card-title">Top 5 Brawlers</h2>
+            <canvas id="topBrawlersChart"></canvas>
+        </div>
 
-    <div class="info-grid">
+        <div class="card">
+            <h2 class="card-title">Top 5 Gamemodes</h2>
+            <canvas id="topGamemodesChart"></canvas>
+        </div>`;
 
-      <div>
-        <strong>Top Brawler</strong>
-        <span>
-          ${battleStats.top_brawlers?.[0]?.brawler || "N/A"}
-        </span>
-      </div>
+    cardshowCase.innerHTML = playerInfoHtml + collectlibesHtml + collectlibesHtml + gameStatsHtml + battleStatsHtml + chartsHtml;
 
-      <div>
-        <strong>Games Played</strong>
-        <span>
-          ${battleStats.top_brawlers?.[0]?.games || 0}
-        </span>
-      </div>
-
-      <div>
-        <strong>Top Gamemode</strong>
-        <span>
-          ${battleStats.top_gamemodes?.[0]?.gamemode || "N/A"}
-        </span>
-      </div>
-
-      <div>
-        <strong>Games Played</strong>
-        <span>
-          ${battleStats.top_gamemodes?.[0]?.games || 0}
-        </span>
-      </div>
-
-    </div>
-  </div>
-`;
-
-const rankingsHtml = `
-  <div class="card">
-    <h2 class="card-title">Top Brawlers</h2>
-
-    <div class="info-grid">
-      ${
-        battleStats.top_brawlers.map((brawler, index) => `
-          <div>
-            <strong>#${index + 1} ${brawler.brawler}</strong>
-            <span>${brawler.games} games</span>
-          </div>
-        `).join("")
-      }
-    </div>
-  </div>
-
-
-  <div class="card">
-    <h2 class="card-title">Top Gamemodes</h2>
-
-    <div class="info-grid">
-      ${
-        battleStats.top_gamemodes.map((mode, index) => `
-          <div>
-            <strong>#${index + 1} ${mode.gamemode}</strong>
-            <span>${mode.games} games</span>
-          </div>
-        `).join("")
-      }
-    </div>
-  </div>
-`;
-
-
-    playerInfoDiv.innerHTML = playerInfoHtml;
-    collectiblesDiv.innerHTML = collectlibesHtml;
-    gameStatsDiv.innerHTML = gameStatsHtml;
-    battleStatsDiv.innerHTML = gameStatsHtml + battleStatsHtml + favoritesHtml + rankingsHtml;
+    createCharts();
 }
-
-window.getPlayerData = getPlayerData;

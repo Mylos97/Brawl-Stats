@@ -1,0 +1,43 @@
+:root {
+  --color-starpower : #ffef00;
+  --color-gadget :  #32c12c ;
+  --color-hypercharge :  #7f4fc9;
+  --color-gear :   #00bcd9;
+  --color-buffies :  #3e49bb;
+  --color-brawlers :  #5f7d8e;
+}
+
+#footer {
+    position:fixed;
+    bottom:0;
+}
+
+footer {
+    text-align: center;
+    font-size: 12px;
+    padding: 12px 20px;
+    opacity: 0.7;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #f0f7ff;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1c2a49 0%, #0a1224 55%, #05080f 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin: 0 auto;
+  padding: 24px 120px;;
+  height: 100%;
+}
