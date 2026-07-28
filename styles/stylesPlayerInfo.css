@@ -78,12 +78,37 @@
     height: 300px !important;
 }
 
-@media (max-width: 500px) {
-    .input-container {
-        grid-template-columns: 1fr;
-    }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    .info-grid {
-        grid-template-columns: 1fr !important;
-    }
+    color: white;
+    width: 100%;
+    font-size: 20px;
+    margin-top: 12px;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-brand,
+.nav-link {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid white;
+}
+
+.player-tag {
+    font-size: 16px;
+    opacity: 0.8;
+    margin: 0;
+    margin-top: 3px;
 }

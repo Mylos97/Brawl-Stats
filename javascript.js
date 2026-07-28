@@ -26,7 +26,7 @@ async function fetchData() {
         console.log(playerDataResult)
         playerData = playerDataResult["accountInfo"];
         battleStats = playerDataResult["battleLogs"];
-        displayPlayerData(playerTag);
+        displayPlayerData();
 
     } catch (error) {
         console.error("Error loading player data:", error);
@@ -107,6 +107,7 @@ function createCharts() {
 
 function displayPlayerData() {
     const cardshowCase = document.getElementById("cardShowcase");
+    const playerHeaderName = document.getElementById("currentPlayerTag");
 
     cleanUpcharts()
 
@@ -117,6 +118,7 @@ function displayPlayerData() {
     }
 
     const selectedPlayerTag = (playerData.tag || "").trim();
+    playerHeaderName.textContent = `${playerData.name} ${playerData.tag}`
 
     const allBrawlersLength = 105;
     const brawlers = playerData.brawlers || [];
@@ -148,8 +150,6 @@ function displayPlayerData() {
       <div class="card">
         <h2 class="card-title">General Player Info</h2>
         <div class="info-grid">
-          <div><strong>Name</strong><span>${playerData.name}</span></div>
-          <div><strong>Tag</strong><span>${playerData.tag}</span></div>
           <div><strong>Trophies</strong><span>${playerData.trophies}</span></div>
           <div><strong>Club</strong><span>${playerData.club?.name || "No club"}</span></div>
           <div><strong>Average Trophies per Brawler</strong><span>${averageTrophies}</span></div>
