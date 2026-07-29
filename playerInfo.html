@@ -22,18 +22,22 @@
                 <p id="currentPlayerTag" class="player-tag"></p>
             </div>
             <div class="nav-right">
-                <a id="statsTab" href="#" class="nav-link active">
+                <button id="statsTab" class="nav-link active">
                     Stats
-                </a>
-                <a id="graphsTab" href="#" class="nav-link">
+                </button>
+
+                <button id="graphsTab" class="nav-link">
                     Graphs
-                </a>
+                </button>
             </div>
         </nav>
         <div class="card-showcase" id="cardShowcase"></div>
+        <div class="card-showcase" id="graphShowcase" style="display: none;"></div>
     </div>
+    <script type="module" src="./scripts/navbar.js"></script>
     <script type="module" src="./scripts/fetchPlayer.js"></script>
     <script type="module" src="./scripts/playerInfoStats.js"></script>
+    <script type="module" src="./scripts/playerInfoGraphs.js"></script>
     <footer>
         This material is unofficial and is not endorsed by Supercell.
         For more information see Supercell's Fan Content Policy

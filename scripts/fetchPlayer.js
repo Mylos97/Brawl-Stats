@@ -1,4 +1,5 @@
 import { displayPlayerData } from "./playerInfoStats.js";
+import { createCharts } from "./playerInfoGraphs.js";
 
 const url = "http://127.0.0.1";
 
@@ -23,6 +24,7 @@ async function fetchData() {
         const playerData = playerDataResult["accountInfo"];
         const battleStats = playerDataResult["battleLogs"];
         displayPlayerData(playerData, battleStats);
+        createCharts(battleStats);
 
     } catch (error) {
         console.error("Error loading player data:", error);

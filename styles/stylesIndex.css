@@ -10,7 +10,7 @@
 
 h1 {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: center;
@@ -19,16 +19,10 @@ h1 {
 }
 
 .input-container {
-  max-width: 500px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto;
+  max-width: 700px;
+  display: flex;
   gap: 12px;
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  padding: 18px;
   box-shadow: 0 24px 60px rgba(2, 18, 45, 0.35);
 }
 
@@ -45,6 +39,7 @@ h1 {
   color: #f9fbff;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  flex:1;
 }
 
 .input-container input:focus {
@@ -53,14 +48,16 @@ h1 {
 }
 
 .input-container button {
-  padding: 14px 20px;
+  padding: 14px;
   border: none;
   border-radius: 14px;
   background: linear-gradient(135deg, #5d8bff 0%, #3e5dff 100%);
   color: white;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+  flex:0;
 }
 
 .input-container button:hover {

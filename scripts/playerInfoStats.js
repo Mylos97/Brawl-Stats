@@ -40,18 +40,50 @@ export function displayPlayerData(playerData, battleStats) {
     const totaltBuffies = brawlersWithBuffies.size * 3;
 
     const playerInfoHtml = `
-      <div class="card">
-        <h2 class="card-title">General Player Info</h2>
-        <div class="info-grid">
-          <div><strong>Trophies</strong><span>${playerData.trophies}</span></div>
-          <div><strong>Club</strong><span>${playerData.club?.name || "No club"}</span></div>
-          <div><strong>Average Trophies per Brawler</strong><span>${averageTrophies}</span></div>
-          <div><strong>Total Prestige</strong><span>${totalPrestige}</span></div>
-          <div><strong>3vs3Victories</strong><span>${playerData["3vs3Victories"] || 0}</span></div>
-          <div><strong>Showdown Victories</strong><span>${playerData["soloVictories"] || 0}</span></div>
+<div class="card">
+    <h2 class="card-title">General Player Info</h2>
+
+    <div class="hero-stat">
+        <div class="hero-icon">🏆</div>
+        <div class="hero-value">${playerData.trophies.toLocaleString()}</div>
+        <div class="hero-label">Current Trophies</div>
+    </div>
+
+    <div class="info-list">
+
+        <div class="info-row">
+            <span class="info-label">Club</span>
+            <span class="info-value">${playerData.club?.name || "No Club"}</span>
         </div>
-      </div>
-    `;
+
+        <div class="info-row">
+            <span class="info-label">Average Trophies / Brawler</span>
+            <span class="info-value">${averageTrophies}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Total Prestige</span>
+            <span class="info-value">${totalPrestige}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">3v3 Victories</span>
+            <span class="info-value">${playerData["3vs3Victories"] || 0}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Solo Victories</span>
+            <span class="info-value">${playerData["soloVictories"] || 0}</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Total Victories</span>
+            <span class="info-value">${playerData["soloVictories"] + playerData["3vs3Victories"] || 0}</span>
+        </div>
+
+    </div>
+</div>
+`;
 
     const collectlibesHtml = `
       <div class="card">

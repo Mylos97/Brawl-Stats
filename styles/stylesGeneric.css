@@ -38,6 +38,12 @@ body {
   justify-content: center;
   gap: 30px;
   margin: 0 auto;
-  padding: 24px 120px;;
+  padding: 24px 120px;
   height: 100%;
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: 24px;
+    }
 }
