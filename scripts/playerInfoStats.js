@@ -1,115 +1,8 @@
 import { brawlersWithBuffies } from "./buffies.js";
 
-let playerData = null;
-let battleStats = null;
-let url = "http://127.0.0.1";
-let brawlerChart;
-let gamemodeChart;
-
-window.onload = function() {
-  fetchData();
-};
-
-async function fetchData() {
-    try {
-        const params = new URLSearchParams(window.location.search);
-        const playerTag = params.get("tag");
-
-        const playerResponse = await fetch(`${url}/api/player/${playerTag}`);
-
-        if (!playerResponse.ok) {
-            throw new Error("Could not load one or more data files.");
-        }
-
-        const playerDataResult = await playerResponse.json();
-
-        console.log(playerDataResult)
-        playerData = playerDataResult["accountInfo"];
-        battleStats = playerDataResult["battleLogs"];
-        displayPlayerData();
-
-    } catch (error) {
-        console.error("Error loading player data:", error);
-    }
-}
-
-function createTopBrawlerChart() {
-    brawlerChart = new Chart(document.getElementById("topBrawlersChart"), {
-        type: "bar",
-        data: {
-            labels: battleStats.top_brawlers.map(b => b.brawler),
-            datasets: [{
-                label: "Games Played",
-                data: battleStats.top_brawlers.map(b => b.games),
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0
-                    }
-                }
-            }
-        }
-    });
-}
-
-function createTopGamesModesChart() {
-    gamemodeChart = new Chart(document.getElementById("topGamemodesChart"), {
-        type: "bar",
-        data: {
-            labels: battleStats.top_gamemodes.map(g => g.gamemode),
-            datasets: [{
-                label: "Games Played",
-                data: battleStats.top_gamemodes.map(g => g.games),
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0
-                    }
-                }
-            }
-        }
-    });
-}
-
-function cleanUpcharts() {
-    if (brawlerChart) brawlerChart.destroy();
-    if (gamemodeChart) gamemodeChart.destroy();
-}
-
-function createCharts() {
-    createTopBrawlerChart();
-    createTopGamesModesChart();
-}
-
-function displayPlayerData() {
+export function displayPlayerData(playerData, battleStats) {
     const cardshowCase = document.getElementById("cardShowcase");
     const playerHeaderName = document.getElementById("currentPlayerTag");
-
-    cleanUpcharts()
 
     if (!playerData) {
         cardshowCase.innerHTML = "";
@@ -242,18 +135,5 @@ function displayPlayerData() {
     </div>
   </div>`;
 
-    const chartsHtml = `
-        <div class="card">
-            <h2 class="card-title">Top 5 Brawlers</h2>
-            <canvas id="topBrawlersChart"></canvas>
-        </div>
-
-        <div class="card">
-            <h2 class="card-title">Top 5 Gamemodes</h2>
-            <canvas id="topGamemodesChart"></canvas>
-        </div>`;
-
-    cardshowCase.innerHTML = playerInfoHtml + collectlibesHtml + collectlibesHtml + gameStatsHtml + battleStatsHtml + chartsHtml;
-
-    createCharts();
+    cardshowCase.innerHTML = playerInfoHtml + collectlibesHtml + gameStatsHtml + battleStatsHtml;
 }
