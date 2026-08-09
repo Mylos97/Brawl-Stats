@@ -1,7 +1,7 @@
 import { displayPlayerData } from "./playerInfoStats.js";
 import { createCharts } from "./playerInfoGraphs.js";
 
-const url = "http://127.0.0.1";
+const url = "http://81.88.19.86";
 
 window.onload = function() {
   fetchData();
