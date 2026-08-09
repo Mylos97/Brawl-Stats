@@ -1,7 +1,7 @@
 import { displayPlayerData } from "./playerInfoStats.js";
 import { createCharts } from "./playerInfoGraphs.js";
 
-const url = "http://81.88.19.86";
+const url = "https://api.findendag.dk";
 
 window.onload = function() {
   fetchData();
