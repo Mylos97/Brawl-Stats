@@ -205,7 +205,7 @@ export function displayPlayerData(playerData, battleStats) {
 
     const battleStatsHtml = `
     <div class="card">
-        <h2 class="card-title">Tracked Battle Statistics</h2>
+        <h2 class="card-title">Battle Statistics</h2>
 
         <div class="hero-stat">
             <div class="hero-icon">⚔️</div>
