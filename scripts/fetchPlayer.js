@@ -2,8 +2,16 @@ import { displayPlayerData } from "./playerInfoStats.js";
 import { createCharts } from "./playerInfoGraphs.js";
 
 const url = "https://api.findendag.dk";
+const errorMessage = document.getElementById("errorMessage");
 
 window.addEventListener("DOMContentLoaded", fetchData);
+
+function showError(message) {
+    if (errorMessage) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = "block";
+    }
+}
 
 async function fetchData() {
     try {
@@ -17,7 +25,11 @@ async function fetchData() {
         const response = await fetch(`${url}/api/player/${encodeURIComponent(playerTag)}`);
 
         if (!response.ok) {
-            throw new Error(`Failed to load player data: ${response.status} ${response.statusText}`);
+            const message = response.status === 404
+                ? `Could not find a player with tag ${playerTag}.`
+                : `Failed to load player data: ${response.status} ${response.statusText}`;
+            showError(message);
+            throw new Error(message);
         }
 
         const result = await response.json();
@@ -25,7 +37,9 @@ async function fetchData() {
         const battleStats = result?.battleLogs;
 
         if (!playerData || !battleStats) {
-            throw new Error("Incomplete player data received from API.");
+            const message = `Could not find a player with tag ${playerTag}.`;
+            showError(message);
+            throw new Error(message);
         }
 
         displayPlayerData(playerData, battleStats);
