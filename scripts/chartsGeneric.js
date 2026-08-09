@@ -6,7 +6,7 @@ const genericTitle = {
     color: "#8eaefc",
     padding: 0,
     font: {
-        size: 18,
+        size: 16,
         family: "system-ui"
     }
 }
