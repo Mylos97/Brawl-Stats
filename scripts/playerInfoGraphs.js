@@ -7,28 +7,46 @@ let gamemodeChart = null;
 let trophyHistoryChart = null;
 
 function createTopBrawlerChart(battleStats) {
+    const labels = Array.isArray(battleStats.top_brawlers) ? battleStats.top_brawlers.map((b) => b.brawler) : [];
+    const data = Array.isArray(battleStats.top_brawlers) ? battleStats.top_brawlers.map((b) => b.games || 0) : [];
+
     brawlerChart = createHorizontalBarChart(
         "topBrawlersChart",
-        battleStats.top_brawlers.map(b => b.brawler),
-        battleStats.top_brawlers.map(b => b.games),
+        labels,
+        data,
         "Favorite Brawlers",
         "Games Played"
     );
 }
 
 function createTopGamesModesChart(battleStats) {
+    const labels = Array.isArray(battleStats.top_gamemodes) ? battleStats.top_gamemodes.map((g) => g.gamemode) : [];
+    const data = Array.isArray(battleStats.top_gamemodes) ? battleStats.top_gamemodes.map((g) => g.games || 0) : [];
+
     gamemodeChart = createHorizontalBarChart(
         "topGamemodesChart",
-        battleStats.top_gamemodes.map(g => g.gamemode),
-        battleStats.top_gamemodes.map(g => g.games),
+        labels,
+        data,
         "Favorite Gamemodes",
         "Games Played"
     );
 }
 
-function cleanUpcharts() {
-    if (brawlerChart) brawlerChart.destroy();
-    if (gamemodeChart) gamemodeChart.destroy();
+function cleanUpCharts() {
+    if (brawlerChart) {
+        brawlerChart.destroy();
+        brawlerChart = null;
+    }
+
+    if (gamemodeChart) {
+        gamemodeChart.destroy();
+        gamemodeChart = null;
+    }
+
+    if (trophyHistoryChart) {
+        trophyHistoryChart.destroy();
+        trophyHistoryChart = null;
+    }
 }
 
 function createCards() {
@@ -59,15 +77,15 @@ function createCards() {
 }
 
 export function createCharts(battleStats) {
-    cleanUpcharts();
+    cleanUpCharts();
 
     createCards();
     createTopBrawlerChart(battleStats);
     createTopGamesModesChart(battleStats);
-    createLineChart(
+    trophyHistoryChart = createLineChart(
         trophyHistoryId,
-        battleStats.daily_trophies.map(entry => entry.date),
-        battleStats.daily_trophies.map(entry => entry.trophies_gained),
+        Array.isArray(battleStats.daily_trophies) ? battleStats.daily_trophies.map((entry) => entry.date) : [],
+        Array.isArray(battleStats.daily_trophies) ? battleStats.daily_trophies.map((entry) => entry.trophies_gained || 0) : [],
         "Trophy History"
     );
 }

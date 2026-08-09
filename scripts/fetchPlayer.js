@@ -3,29 +3,33 @@ import { createCharts } from "./playerInfoGraphs.js";
 
 const url = "https://api.findendag.dk";
 
-window.onload = function() {
-  fetchData();
-};
+window.addEventListener("DOMContentLoaded", fetchData);
 
 async function fetchData() {
     try {
         const params = new URLSearchParams(window.location.search);
-        const playerTag = params.get("tag");
+        const playerTag = params.get("tag")?.replace(/^#/, "").trim();
 
-        const playerResponse = await fetch(`${url}/api/player/${playerTag}`);
-
-        if (!playerResponse.ok) {
-            throw new Error("Could not load one or more data files.");
+        if (!playerTag) {
+            throw new Error("Player tag is required in the URL query string.");
         }
 
-        const playerDataResult = await playerResponse.json();
+        const response = await fetch(`${url}/api/player/${encodeURIComponent(playerTag)}`);
 
-        console.log(playerDataResult)
-        const playerData = playerDataResult["accountInfo"];
-        const battleStats = playerDataResult["battleLogs"];
+        if (!response.ok) {
+            throw new Error(`Failed to load player data: ${response.status} ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        const playerData = result?.accountInfo;
+        const battleStats = result?.battleLogs;
+
+        if (!playerData || !battleStats) {
+            throw new Error("Incomplete player data received from API.");
+        }
+
         displayPlayerData(playerData, battleStats);
         createCharts(battleStats);
-
     } catch (error) {
         console.error("Error loading player data:", error);
     }

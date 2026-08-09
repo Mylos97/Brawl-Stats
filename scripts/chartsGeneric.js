@@ -36,6 +36,7 @@ export function createHorizontalBarChart(htmlChartId, labels, data, title, datas
         options: {
             indexAxis: "y",
             maintainAspectRatio: false,
+            animation: false,
             plugins: {
                 legend: {
                     display: false
@@ -77,6 +78,7 @@ export function createDoughnutChart(htmlChartId, labels, data, title) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: false,
             cutout: "80%",
             plugins: {
                 title: {...genericTitle, text: title, padding: {bottom: 34}, align: "center"},
@@ -109,6 +111,7 @@ export function createLineChart(htmlChartId, labels, data, title) {
         },
         options: {
             maintainAspectRatio: false,
+            animation: false,
             plugins: {
                 legend: {
                     display: false

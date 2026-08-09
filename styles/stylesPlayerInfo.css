@@ -55,6 +55,16 @@
     
 }
 
+.page-error {
+    width: 100%;
+    color: #ff9fb8;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 111, 126, 0.2);
+    padding: 14px 18px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+}
+
 .info-row-collectible{
     display: grid;
 }

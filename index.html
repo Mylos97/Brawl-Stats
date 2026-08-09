@@ -6,18 +6,19 @@
     <title>Brawl Stats</title>
     <link rel="stylesheet" href="./styles/stylesGeneric.css">
     <link rel="stylesheet" href="./styles/stylesIndex.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"
+        integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 </head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"
-    integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <body>
     <div class="page">
         <div class="container">
             <h1>Brawl Stats</h1>
             <div class="input-container">
                 <input type="text" id="playerTag" placeholder="Enter player tag" maxlength="10" value="2QRVLCGGR">
-                <button id="fetchButton" onclick="openPlayerInfo()">Fetch Stats</button>
+                <button id="fetchButton" type="button">Fetch Stats</button>
             </div>
+            <p id="errorMessage" class="input-error" aria-live="polite"></p>
         </div>
         <footer>
             This material is unofficial and is not endorsed by Supercell.
