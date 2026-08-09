@@ -1,15 +1,15 @@
 :root {
-  --color-starpower : #ffef00;
-  --color-gadget :  #32c12c ;
-  --color-hypercharge :  #7f4fc9;
-  --color-gear :   #00bcd9;
-  --color-buffies :  #3e49bb;
-  --color-brawlers :  #5f7d8e;
+    --color-starpower: #ffef00;
+    --color-gadget: #32c12c;
+    --color-hypercharge: #7f4fc9;
+    --color-gear: #00bcd9;
+    --color-buffies: #3e49bb;
+    --color-brawlers: #5f7d8e;
 }
 
 #footer {
-    position:fixed;
-    bottom:0;
+    position: fixed;
+    bottom: 0;
 }
 
 footer {
@@ -20,27 +20,56 @@ footer {
 }
 
 body {
-  margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  color: #f0f7ff;
-  min-height: 100vh;
-  background: radial-gradient(circle at top, #1c2a49 0%, #0a1224 55%, #05080f 100%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow-x: hidden;
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #f0f7ff;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1c2a49 0%, #0a1224 55%, #05080f 100%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  margin: 0 auto;
-  padding: 24px 120px;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin: 0 auto;
+    padding: 24px 120px;
 }
+
+.chart-container {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 40vh;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+}
+
+.chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.chart-card-panel {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.card canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 
 @media (max-width: 900px) {
     .container {
