@@ -25,9 +25,7 @@ async function fetchData() {
         const response = await fetch(`${url}/api/player/${encodeURIComponent(playerTag)}`);
 
         if (!response.ok) {
-            const message = response.status === 404
-                ? `Could not find a player with tag ${playerTag}.`
-                : `Failed to load player data: ${response.status} ${response.statusText}`;
+            const message = `Failed to load player data with tag ${playerTag}.`;
             showError(message);
             throw new Error(message);
         }
