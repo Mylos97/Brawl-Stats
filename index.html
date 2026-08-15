@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+TODO
+Don't show graphs when no graphs when no data is stored yet
+Finish dropdown implementation
+Make a new graph so theres 4 in total
+Make a dashboard that shows all the data from all stored players
+Show some kind of way that api is fetching
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +18,16 @@
         integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 </head>
+
 <body>
     <div class="page">
         <div class="container">
             <h1>Brawl Stats</h1>
             <div class="input-container">
-                <input type="text" id="playerTag" placeholder="Enter player tag" maxlength="10" value="2QRVLCGGR">
+                <div class="search-container">
+                    <input type="text" id="playerTag" placeholder="2QRVLCGGR" autocomplete="off" aria-autocomplete="list" aria-controls="autocomplete-list">
+                    <div id="autocomplete-list" class="autocomplete-items" role="listbox"></div>
+                </div>
                 <button id="fetchButton" type="button">Fetch Stats</button>
             </div>
             <p id="errorMessage" class="input-error" aria-live="polite"></p>
@@ -25,7 +37,8 @@
             For more information see Supercell's Fan Content Policy:
             www.supercell.com/fan-content-policy.
         </footer>
-        <script src="./scripts/index.js"></script>
+        <script type="module" src="./scripts/index.js"></script>
     </div>
 </body>
+
 </html>

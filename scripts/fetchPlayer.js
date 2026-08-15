@@ -4,8 +4,6 @@ import { createCharts } from "./playerInfoGraphs.js";
 const url = "https://api.findendag.dk";
 const errorMessage = document.getElementById("errorMessage");
 
-window.addEventListener("DOMContentLoaded", fetchData);
-
 function showError(message) {
     if (errorMessage) {
         errorMessage.textContent = message;
@@ -13,7 +11,27 @@ function showError(message) {
     }
 }
 
-async function fetchData() {
+export async function fetchPlayerSearch(text) {
+    try {
+        const playerSearchUrl = `${url}/api/player/search/${encodeURIComponent(text)}`;
+        console.log("Fetching player search from URL:", playerSearchUrl);
+        const response = await fetch(playerSearchUrl);
+
+        if (!response.ok) {
+            const message = `Failed to search for players with text "${text}".`;
+            showError(message);
+            throw new Error(message);
+        }
+
+        const result = await response.json();
+        return result || [];
+    } catch (error) {
+        console.error("Error searching for players:", error);
+        return [];
+    }
+}
+
+export async function fetchData() {
     try {
         const params = new URLSearchParams(window.location.search);
         const playerTag = params.get("tag")?.replace(/^#/, "").trim();
@@ -42,6 +60,7 @@ async function fetchData() {
 
         displayPlayerData(playerData, battleStats);
         createCharts(battleStats);
+        console.log(result)
     } catch (error) {
         console.error("Error loading player data:", error);
     }

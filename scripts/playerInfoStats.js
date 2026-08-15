@@ -1,5 +1,14 @@
 import { brawlersWithBuffies } from "./buffies.js";
 import { createDoughnutChart } from "./chartsGeneric.js";
+import { fetchData } from "./fetchPlayer.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+    if(!document.URL .includes("playerInfo.html")) {
+        return;
+    }
+    
+    fetchData();
+});
 
 export function displayPlayerData(playerData, battleStats) {
     const cardShowcase = document.getElementById("cardShowcase");
