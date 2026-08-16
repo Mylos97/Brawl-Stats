@@ -4,7 +4,6 @@ const playerTagInput = document.getElementById("playerTag");
 const fetchButton = document.getElementById("fetchButton");
 const autocompleteList = document.getElementById("autocomplete-list");
 const KEY = "recent_searches";
-const API_URL = "https://api.findendag.dk";
 let typingTimeout;
 
 function navigateToPlayerInfo() {
@@ -81,7 +80,6 @@ autocompleteList.addEventListener("click", (event) => {
     const tag = item.dataset.tag;
     const name = item.dataset.name;
 
-    console.log(tag, name)
     addRecentSearch({ tag, name });
     playerTagInput.value = tag;
     autocompleteList.classList.remove("show");

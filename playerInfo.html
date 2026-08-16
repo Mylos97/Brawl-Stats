@@ -17,11 +17,11 @@
         <nav class="navbar">
             <div class="nav-left">
                 <a href="index.html" class="nav-brand">
-                    Brawl Stats
+                    Home
                 </a>
                 <p id="currentPlayerTag" class="player-tag"></p>
             </div>
-            <div class="nav-right">
+            <div id="navbar-content" class="nav-right" style="display:none">
                 <button id="statsTab" class="nav-link active">
                     Stats
                 </button>
@@ -32,17 +32,19 @@
             </div>
         </nav>
         <div id="errorMessage" class="page-error" role="alert" aria-live="assertive" style="display:none;"></div>
-        <div class="card-showcase" id="cardShowcase"></div>
+        <div class="content-loading" id="cardShowcase">
+            <span class="loader"></span>
+        </div>
         <div class="card-showcase" id="graphShowcase" style="display: none;"></div>
     </div>
-    <script type="module" src="./scripts/navbar.js"></script>
-    <script type="module" src="./scripts/playerInfoStats.js"></script>
-    <script type="module" src="./scripts/playerInfoGraphs.js"></script>
     <footer>
         This material is unofficial and is not endorsed by Supercell.
         For more information see Supercell's Fan Content Policy
         www.supercell.com/fan-content-policy.
     </footer>
 </body>
+<script type="module" src="./scripts/navbar.js"></script>
+<script type="module" src="./scripts/playerInfoStats.js"></script>
+<script type="module" src="./scripts/playerInfoGraphs.js"></script>
 
 </html>

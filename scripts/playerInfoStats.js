@@ -1,16 +1,27 @@
 import { brawlersWithBuffies } from "./buffies.js";
 import { createDoughnutChart } from "./chartsGeneric.js";
 import { fetchData } from "./fetchPlayer.js";
+import { getState } from "./state.js";
+import { createCharts } from "./playerInfoGraphs.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     if(!document.URL .includes("playerInfo.html")) {
         return;
     }
     
-    fetchData();
+    await fetchData();
+    const { playerData, battleStats } = getState();
+    const navbarDiv = document.getElementById("navbar-content");
+
+    if(battleStats != null && battleStats.wins > 0) {
+        navbarDiv.style = "";
+    }
+
+    displayPlayerData(playerData, battleStats);
+    createCharts(battleStats);
 });
 
-export function displayPlayerData(playerData, battleStats) {
+function displayPlayerData(playerData, battleStats) {
     const cardShowcase = document.getElementById("cardShowcase");
     const playerHeaderName = document.getElementById("currentPlayerTag");
 
@@ -255,6 +266,7 @@ export function displayPlayerData(playerData, battleStats) {
         </div>
     </div>`;
 
+    cardShowcase.className = "card-showcase";
     cardShowcase.innerHTML = playerInfoHtml + collectlibesHtml + gameStatsHtml + battleStatsHtml;
 
     const powerLevelChart = createDoughnutChart(

@@ -11,6 +11,15 @@ const genericTitle = {
     }
 }
 
+const tooltip = {
+    enabled: true,
+    backgroundColor: "rgba(255,255,255,0.99)",
+    titleColor: "#8eaefc",
+    bodyColor: "#0a1224",
+    borderColor: "#8eaefc",
+    borderWidth: 1,
+}
+
 export function redrawCharts(charts) {
     for (const chart of charts) {
         if (chart) {
@@ -41,7 +50,8 @@ export function createHorizontalBarChart(htmlChartId, labels, data, title, datas
                 legend: {
                     display: false
                 },
-                title: {...genericTitle, text: title}
+                title: { ...genericTitle, text: title },
+                tooltip: tooltip
             },
             scales: {
                 x: {
@@ -81,7 +91,8 @@ export function createDoughnutChart(htmlChartId, labels, data, title) {
             animation: false,
             cutout: "80%",
             plugins: {
-                title: {...genericTitle, text: title, padding: {bottom: 34}, align: "center"},
+                tooltip : tooltip,
+                title: { ...genericTitle, text: title, padding: { bottom: 34 }, align: "center" },
                 legend: {
                     position: "bottom",
                     labels: {
@@ -113,10 +124,11 @@ export function createLineChart(htmlChartId, labels, data, title) {
             maintainAspectRatio: false,
             animation: false,
             plugins: {
+                tooltip: tooltip,
                 legend: {
                     display: false
                 },
-                title: {...genericTitle, text: title,  padding: {bottom: 34}}
+                title: { ...genericTitle, text: title, padding: { bottom: 34 } }
             },
             scales: {
                 y: {
@@ -133,4 +145,42 @@ export function createLineChart(htmlChartId, labels, data, title) {
         }
     });
 }
+
+export function createDoubleLineChart(htmlChartId, labels, datasets, title) {
+    console.log("Creating double line chart with datasets:", datasets);
+    return new Chart(document.getElementById(htmlChartId), {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            maintainAspectRatio: false,
+            animation: false,
+            stacked: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                tooltip : tooltip,
+                legend: {
+                    display: false
+                },
+                title: { ...genericTitle, text: title, padding: { bottom: 34 } }
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                },
+                x: {
+                    display: false,
+                }
+            }
+        }
+    });
+}
+
 

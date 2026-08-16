@@ -1,7 +1,8 @@
-import { createHorizontalBarChart, createLineChart } from "./chartsGeneric.js";
+import { createHorizontalBarChart, createLineChart, createDoubleLineChart } from "./chartsGeneric.js";
 
 const container = document.getElementById("graphShowcase");
 const trophyHistoryId = "trophyHistoryChart";
+const winLossHistoryId = "winLossHistoryChart";
 let brawlerChart = null;
 let gamemodeChart = null;
 let trophyHistoryChart = null;
@@ -30,6 +31,39 @@ function createTopGamesModesChart(battleStats) {
         "Favorite Gamemodes",
         "Games Played"
     );
+}
+
+function createWinLossChart(battleStats) {
+    console.log(battleStats)
+    const labels = Array.isArray(battleStats.win_losses_history) ?
+        battleStats.win_losses_history.map((entry) => entry.date) : [];
+
+    const wins = Array.isArray(battleStats.win_losses_history) ?
+        battleStats.win_losses_history.map((entry) => entry.win) : []
+
+    const losses = Array.isArray(battleStats.win_losses_history) ?
+        battleStats.win_losses_history.map((entry) => entry.loss) : []
+
+
+    const datasets = [
+        {
+            label: 'Wins',
+            data: wins,
+            borderColor: "green",
+            yAxisID: 'y',
+            tension: 0.4
+        },
+        {
+            label: 'Losses',
+            data: losses,
+            borderColor: "red",
+            yAxisID: 'y',
+            tension: 0.4
+        }
+    ];
+
+
+    createDoubleLineChart(winLossHistoryId, labels, datasets, "Win/Loss History");
 }
 
 function cleanUpCharts() {
@@ -71,9 +105,17 @@ function createCards() {
             <canvas id=${trophyHistoryId}></canvas>
         </div> 
     </div>`
-    ;
+        ;
 
-    container.innerHTML = top5Brawlers + trophyHistoryChart + top5GamesModes;
+    const winLossesChart = `
+    <div class="card">
+        <div class="chart-container">
+            <canvas id=${winLossHistoryId}></canvas>
+        </div> 
+    </div>`
+        ;
+
+    container.innerHTML = top5Brawlers + trophyHistoryChart + top5GamesModes + winLossesChart;
 }
 
 export function createCharts(battleStats) {
@@ -82,6 +124,7 @@ export function createCharts(battleStats) {
     createCards();
     createTopBrawlerChart(battleStats);
     createTopGamesModesChart(battleStats);
+    createWinLossChart(battleStats);
     trophyHistoryChart = createLineChart(
         trophyHistoryId,
         Array.isArray(battleStats.daily_trophies) ? battleStats.daily_trophies.map((entry) => entry.date) : [],

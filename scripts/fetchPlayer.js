@@ -1,5 +1,5 @@
-import { displayPlayerData } from "./playerInfoStats.js";
-import { createCharts } from "./playerInfoGraphs.js";
+import { setPlayer, setBattles } from "./state.js";
+
 
 const url = "https://api.findendag.dk";
 const errorMessage = document.getElementById("errorMessage");
@@ -57,10 +57,10 @@ export async function fetchData() {
             showError(message);
             throw new Error(message);
         }
+        console.log("hello ")
+        setPlayer(playerData);
+        setBattles(battleStats);
 
-        displayPlayerData(playerData, battleStats);
-        createCharts(battleStats);
-        console.log(result)
     } catch (error) {
         console.error("Error loading player data:", error);
     }
