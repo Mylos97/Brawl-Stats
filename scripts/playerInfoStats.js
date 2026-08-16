@@ -32,7 +32,7 @@ function displayPlayerData(playerData, battleStats) {
     }
 
     const selectedPlayerTag = (playerData.tag || "").trim();
-    playerHeaderName.textContent = `${playerData.name || "Unknown"} (${selectedPlayerTag})`;
+    playerHeaderName.textContent = `${playerData.name || "Unknown"}`;
 
     const allBrawlersLength = 105;
     const brawlers = Array.isArray(playerData.brawlers) ? [...playerData.brawlers] : [];
