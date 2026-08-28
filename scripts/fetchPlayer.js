@@ -1,7 +1,7 @@
 import { setPlayer, setBattles, setAllBattleStats } from "./state.js";
 
 
-const url = "http://127.0.0.1";
+const url = "https://api.findendag.dk";
 const errorMessage = document.getElementById("errorMessage");
 const loadingContainer = document.getElementById("cardShowcase");
 
