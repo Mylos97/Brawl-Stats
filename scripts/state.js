@@ -1,6 +1,7 @@
 let state = {
     playerData: null,
-    battleStats: null
+    battleStats: null,
+    allBattleStats: null
 };
 
 export function getState() {
@@ -11,10 +12,22 @@ export function getState() {
     return state;
 }
 
+export function getAllBattleStats() {
+    if(state.allBattleStats == null) {
+        throw new Error("All battle stats are not initinalized")
+    }
+
+    return state.allBattleStats;
+}
+
 export function setPlayer(playerData) {
     state.playerData = playerData;
 }
 
 export function setBattles(battleStats) {
     state.battleStats = battleStats;
+}
+
+export function setAllBattleStats(allBattleStats) {
+    state.allBattleStats = allBattleStats;
 }

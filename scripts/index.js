@@ -15,7 +15,7 @@ function navigateToPlayerInfo() {
         return;
     }
 
-    window.location.href = `playerInfo.html?tag=${encodeURIComponent(playerTag)}`;
+    window.location.href = `player-info.html?tag=${encodeURIComponent(playerTag)}`;
 }
 
 fetchButton.addEventListener("click", navigateToPlayerInfo);

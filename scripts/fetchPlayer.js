@@ -1,7 +1,7 @@
-import { setPlayer, setBattles } from "./state.js";
+import { setPlayer, setBattles, setAllBattleStats } from "./state.js";
 
 
-const url = "https://api.findendag.dk";
+const url = "http://127.0.0.1";
 const errorMessage = document.getElementById("errorMessage");
 const loadingContainer = document.getElementById("cardShowcase");
 
@@ -65,5 +65,25 @@ export async function fetchData() {
 
     } catch (error) {
         console.error("Error loading player data:", error);
+    }
+}
+
+export async function getAllPlayerStats() {
+    const allPlayerStatsUrl = `${url}/api/allplayerstats`;
+
+    try {
+
+        const response = await fetch(allPlayerStatsUrl);
+
+        if (!response.ok) {
+            const message = `Failed to load all player data`;
+            showError(message);
+            throw new Error(message);
+        }
+
+        const result = await response.json();
+        setAllBattleStats(result);
+    } catch (error) {
+        console.error("Error getting all battle data: ", error)        
     }
 }

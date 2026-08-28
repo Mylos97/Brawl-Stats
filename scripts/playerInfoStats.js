@@ -5,7 +5,7 @@ import { getState } from "./state.js";
 import { createCharts } from "./playerInfoGraphs.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    if(!document.URL .includes("playerInfo.html")) {
+    if(!document.URL .includes("player-info.html")) {
         return;
     }
     

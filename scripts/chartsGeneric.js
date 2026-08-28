@@ -28,6 +28,32 @@ export function redrawCharts(charts) {
     }
 }
 
+export function createTopBrawlerChart(battleStats, chartId) {
+    const labels = Array.isArray(battleStats.top_brawlers) ? battleStats.top_brawlers.map((b) => b.brawler) : [];
+    const data = Array.isArray(battleStats.top_brawlers) ? battleStats.top_brawlers.map((b) => b.games || 0) : [];
+    console.log("hello")
+    return createHorizontalBarChart(
+        chartId,
+        labels,
+        data,
+        "Favorite Brawlers",
+        "Games Played"
+    );
+}
+
+export function createTopGamesModesChart(battleStats, chartId) {
+    const labels = Array.isArray(battleStats.top_gamemodes) ? battleStats.top_gamemodes.map((g) => g.gamemode) : [];
+    const data = Array.isArray(battleStats.top_gamemodes) ? battleStats.top_gamemodes.map((g) => g.games || 0) : [];
+
+    createHorizontalBarChart(
+        chartId,
+        labels,
+        data,
+        "Favorite Gamemodes",
+        "Games Played"
+    );
+}
+
 export function createHorizontalBarChart(htmlChartId, labels, data, title, datasetLabel = "Values") {
     return new Chart(document.getElementById(htmlChartId), {
         type: "bar",

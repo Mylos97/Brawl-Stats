@@ -71,7 +71,7 @@
 
 .collectible-value {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     color: #fff;
 }
 
@@ -82,7 +82,8 @@
 
 .info-value {
     color: white;
-    font-weight: 700;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 .card {
