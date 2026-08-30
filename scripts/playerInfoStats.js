@@ -34,7 +34,7 @@ function displayPlayerData(playerData, battleStats) {
     const selectedPlayerTag = (playerData.tag || "").trim();
     playerHeaderName.textContent = `${playerData.name || "Unknown"}`;
 
-    const allBrawlersLength = 105;
+    const allBrawlersLength = 106;
     const brawlers = Array.isArray(playerData.brawlers) ? [...playerData.brawlers] : [];
     const averageTrophies = brawlers.length > 0 ? Math.round(brawlers.reduce((sum, b) => sum + (Number(b.trophies) || 0), 0) / brawlers.length) : 0;
     const totalPrestige = playerData.totalPrestigeLevel || 0;
