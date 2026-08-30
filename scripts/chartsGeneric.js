@@ -1,4 +1,3 @@
-
 const genericTitle = {
     text: "I should be changed",
     display: true,
@@ -31,7 +30,6 @@ export function redrawCharts(charts) {
 export function createTopBrawlerChart(battleStats, chartId) {
     const labels = Array.isArray(battleStats.top_brawlers) ? battleStats.top_brawlers.map((b) => b.brawler) : [];
     const data = Array.isArray(battleStats.top_brawlers) ? battleStats.top_brawlers.map((b) => b.games || 0) : [];
-    console.log("hello")
     return createHorizontalBarChart(
         chartId,
         labels,
@@ -173,7 +171,6 @@ export function createLineChart(htmlChartId, labels, data, title) {
 }
 
 export function createDoubleLineChart(htmlChartId, labels, datasets, title) {
-    console.log("Creating double line chart with datasets:", datasets);
     return new Chart(document.getElementById(htmlChartId), {
         type: "line",
         data: {

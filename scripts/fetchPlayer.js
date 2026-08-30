@@ -16,7 +16,6 @@ function showError(message) {
 export async function fetchPlayerSearch(text) {
     try {
         const playerSearchUrl = `${url}/api/player/search/${encodeURIComponent(text)}`;
-        console.log("Fetching player search from URL:", playerSearchUrl);
         const response = await fetch(playerSearchUrl);
 
         if (!response.ok) {
@@ -59,7 +58,7 @@ export async function fetchData() {
             showError(message);
             throw new Error(message);
         }
-        console.log("hello ")
+
         setPlayer(playerData);
         setBattles(battleStats);
 

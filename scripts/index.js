@@ -106,7 +106,7 @@ playerTagInput.addEventListener("input", (event) => {
 
 playerTagInput.addEventListener("focus", () => {
     const value = playerTagInput.value
-    console.log("event", value)
+
     if (value.length > 0) {
         return;
     }

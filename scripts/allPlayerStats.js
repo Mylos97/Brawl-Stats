@@ -1,17 +1,24 @@
 import { getAllPlayerStats } from "./fetchPlayer.js"
 import { getAllBattleStats } from "./state.js";
-import { createTopBrawlerChart, createTopGamesModesChart } from "./chartsGeneric.js";
+import { createTopBrawlerChart, createTopGamesModesChart, createLineChart } from "./chartsGeneric.js";
 
 await getAllPlayerStats();
 const state = getAllBattleStats();
 const container = document.getElementById("showcase");
 const topBrawlersChartId = "topBrawlersChart";
 const topGamemodesChartId = "topGamemodesChart";
-console.log(state)
+const battleHistoryChartId = "battleHistoryChart";
 
 createCards();
 createTopBrawlerChart(state, topBrawlersChartId);
 createTopGamesModesChart(state, topGamemodesChartId);
+
+createLineChart(
+    battleHistoryChartId,
+    Array.isArray(state.saved_battles_each_day) ? state.saved_battles_each_day.map((entry) => entry.date) : [],
+    Array.isArray(state.saved_battles_each_day) ? state.saved_battles_each_day.map((entry) => entry.battles || 0) : [],
+    "Battle history"
+);
 
 function createCards() {
     const top5Brawlers = `
@@ -25,6 +32,13 @@ function createCards() {
         <div class="card">
             <div class="chart-container">
                 <canvas id="${topGamemodesChartId}"></canvas>
+            </div>
+        </div>`;
+
+    const battleHistory = `
+        <div class="card">
+            <div class="chart-container">
+                <canvas id="${battleHistoryChartId}"></canvas>
             </div>
         </div>`;
     
@@ -42,8 +56,16 @@ function createCards() {
                     <span class="info-value">${state.top_brawlers[0].brawler || "Unknown"}</span>
                 </div>
                 <div class="info-row">
-                    <span class="info-label">Most active player</span>
+                    <span class="info-label">1st active player</span>
                     <span class="info-value">${state.most_active_player[0].player || "Unknown"}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">2nd active player</span>
+                    <span class="info-value">${state.most_active_player[1].player || "Unknown"}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">3rd active player</span>
+                    <span class="info-value">${state.most_active_player[2].player || "Unknown"}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Most played gamemode</span>
@@ -53,5 +75,5 @@ function createCards() {
         </div>`
 
     container.className = "card-showcase";
-    container.innerHTML = allStats + top5Brawlers + top5GamesModes;
+    container.innerHTML = allStats + top5Brawlers + battleHistory + top5GamesModes;
 }

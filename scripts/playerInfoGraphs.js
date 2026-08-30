@@ -34,7 +34,6 @@ function createTopGamesModesChart(battleStats) {
 }
 
 function createWinLossChart(battleStats) {
-    console.log(battleStats)
     const labels = Array.isArray(battleStats.win_losses_history) ?
         battleStats.win_losses_history.map((entry) => entry.date) : [];
 
