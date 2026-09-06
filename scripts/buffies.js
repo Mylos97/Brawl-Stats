@@ -19,5 +19,11 @@ export const brawlersWithBuffies = new Set([
   "RICO",
   "MEG",
   "MAX",
-  "SURGE"
+  "SURGE",
+  "POCO",
+  "EL PRIMO",
+  "AMBER",
+  "GUS",
+  "CHUCK",
+  "SHADE"
 ]);
