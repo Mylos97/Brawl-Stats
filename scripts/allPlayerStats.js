@@ -1,15 +1,18 @@
-import { getAllPlayerStats } from "./fetchPlayer.js"
+import { getAllPlayerStats, getTotalTrackedPlayers } from "./fetchPlayer.js"
 import { getAllBattleStats } from "./state.js";
 import { createTopBrawlerChart, createTopGamesModesChart, createLineChart } from "./chartsGeneric.js";
 
-await getAllPlayerStats();
+const [, totalTrackedPlayers] = await Promise.all([
+    getAllPlayerStats(),
+    getTotalTrackedPlayers()
+]);
 const state = getAllBattleStats();
 const container = document.getElementById("showcase");
 const topBrawlersChartId = "topBrawlersChart";
 const topGamemodesChartId = "topGamemodesChart";
 const battleHistoryChartId = "battleHistoryChart";
 
-createCards();
+createCards(totalTrackedPlayers);
 createTopBrawlerChart(state, topBrawlersChartId);
 createTopGamesModesChart(state, topGamemodesChartId);
 
@@ -20,7 +23,7 @@ createLineChart(
     "Battle history"
 );
 
-function createCards() {
+function createCards(totalTrackedPlayers) {
     const top5Brawlers = `
         <div class="card">
             <div class="chart-container">
@@ -66,6 +69,10 @@ function createCards() {
                 <div class="info-row">
                     <span class="info-label">3rd active player</span>
                     <span class="info-value">${state.most_active_player[2].player || "Unknown"}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Total Tracked Players</span>
+                    <span class="info-value">${totalTrackedPlayers || 0}</span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Most played gamemode</span>

@@ -66,6 +66,24 @@ export async function fetchData() {
     }
 }
 
+export async function getTotalTrackedPlayers() {
+    const trackedPlayersUrl = `${url}/api/trackedplayers`;
+
+    try {
+        const response = await fetch(trackedPlayersUrl);
+
+        if (!response.ok) {
+            throw new Error("Failed to load tracked player count");
+        }
+
+        const result = await response.json();
+        return result?.total_tracked_players ?? 0;
+    } catch (error) {
+        console.error("Error getting total tracked players: ", error);
+        return 0;
+    }
+}
+
 export async function getAllPlayerStats() {
     const allPlayerStatsUrl = `${url}/api/allplayerstats`;
 
