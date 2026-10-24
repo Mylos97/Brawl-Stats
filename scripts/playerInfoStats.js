@@ -10,20 +10,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     
     await fetchData();
-    const { playerData, battleStats } = getState();
+
+    let playerData;
+    let battleStats;
+
+    try {
+        ({ playerData, battleStats } = getState());
+    } catch (error) {
+        console.error("Could not initialize player page:", error);
+        document.getElementById("cardShowcase").innerHTML = "";
+        return;
+    }
+
     const navbarDiv = document.getElementById("navbar-content");
 
-    if(battleStats != null && battleStats.wins > 0) {
+    if ((battleStats?.total_battles || 0) > 0) {
         navbarDiv.style = "";
     }
 
     displayPlayerData(playerData, battleStats);
-    createCharts(battleStats);
+    createCharts(battleStats || {});
 });
 
 function displayPlayerData(playerData, battleStats) {
     const cardShowcase = document.getElementById("cardShowcase");
     const playerHeaderName = document.getElementById("currentPlayerTag");
+    battleStats = battleStats || {};
 
     if (!playerData) {
         cardShowcase.innerHTML = "";
@@ -36,6 +48,8 @@ function displayPlayerData(playerData, battleStats) {
     const allBrawlersLength = 108;
     const brawlers = Array.isArray(playerData.brawlers) ? [...playerData.brawlers] : [];
     const averageTrophies = brawlers.length > 0 ? Math.round(brawlers.reduce((sum, b) => sum + (Number(b.trophies) || 0), 0) / brawlers.length) : 0;
+    const soloVictories = Number(playerData["soloVictories"]) || 0;
+    const threeVsThreeVictories = Number(playerData["3vs3Victories"]) || 0;
     const totalPrestige = playerData.totalPrestigeLevel || 0;
     const totalStarPowers = allBrawlersLength * 2;
     const totalGadgets = allBrawlersLength * 2;
@@ -133,17 +147,17 @@ function displayPlayerData(playerData, battleStats) {
 
         <div class="info-row">
             <span class="info-label">3v3 Victories</span>
-            <span class="info-value">${playerData["3vs3Victories"] || 0}</span>
+            <span class="info-value">${threeVsThreeVictories}</span>
         </div>
 
         <div class="info-row">
             <span class="info-label">Solo Victories</span>
-            <span class="info-value">${playerData["soloVictories"] || 0}</span>
+            <span class="info-value">${soloVictories}</span>
         </div>
 
         <div class="info-row">
             <span class="info-label">Total Victories</span>
-            <span class="info-value">${playerData["soloVictories"] + playerData["3vs3Victories"] || 0}</span>
+            <span class="info-value">${soloVictories + threeVsThreeVictories}</span>
         </div>
 
     </div>
@@ -265,8 +279,18 @@ function displayPlayerData(playerData, battleStats) {
         </div>
     </div>`;
 
+    const brawlerStats = Array.isArray(battleStats.brawler_stats) && battleStats.brawler_stats.length > 0
+        ? battleStats.brawler_stats
+        : (Array.isArray(battleStats.top_brawlers) ? battleStats.top_brawlers : []);
+
+    const brawlerPerformanceHtml = `
+    <div class="card card-wide">
+        <h2 class="card-title">Brawler Performance</h2>
+        ${createBrawlerPerformanceTable(brawlerStats)}
+    </div>`;
+
     cardShowcase.className = "card-showcase";
-    cardShowcase.innerHTML = playerInfoHtml + collectlibesHtml + gameStatsHtml + battleStatsHtml;
+    cardShowcase.innerHTML = playerInfoHtml + collectlibesHtml + gameStatsHtml + battleStatsHtml + brawlerPerformanceHtml;
 
     const powerLevelChart = createDoughnutChart(
         powerLevelChartId,
@@ -280,4 +304,61 @@ function displayPlayerData(playerData, battleStats) {
         Object.values(brawlersGroupedByTrophies),
         "Brawlers by Trophy Range"
     );
+}
+
+function createBrawlerPerformanceTable(brawlerStats) {
+    if (!Array.isArray(brawlerStats) || brawlerStats.length === 0) {
+        return `<p class="empty-state">No brawler battles have been tracked yet.</p>`;
+    }
+
+    const rows = brawlerStats.map((brawler) => {
+        const games = Number(brawler.games) || 0;
+        const wins = Number(brawler.wins) || 0;
+        const rawWinRate = Number(brawler.win_rate);
+        const winRate = Number.isFinite(rawWinRate)
+            ? rawWinRate
+            : (games > 0 ? Math.round(wins / games * 10000) / 100 : 0);
+        const trophyChange = Number(brawler.trophy_change) || 0;
+        const trophyClass = trophyChange > 0
+            ? "trophy-positive"
+            : (trophyChange < 0 ? "trophy-negative" : "");
+        const trophyText = trophyChange > 0 ? `+${trophyChange}` : `${trophyChange}`;
+
+        return `
+            <tr>
+                <td>${escapeHtml(brawler.brawler || "Unknown")}</td>
+                <td>${games}</td>
+                <td>${wins}</td>
+                <td>${winRate}%</td>
+                <td class="${trophyClass}">${trophyText}</td>
+            </tr>`;
+    }).join("");
+
+    return `
+    <div class="table-container">
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Brawler</th>
+                    <th>Games</th>
+                    <th>Wins</th>
+                    <th>Win Rate</th>
+                    <th>Trophies</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    </div>`;
+}
+
+function escapeHtml(value) {
+    const entities = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    };
+
+    return String(value ?? "").replace(/[&<>"']/g, (character) => entities[character]);
 }

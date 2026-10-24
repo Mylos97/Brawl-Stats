@@ -1,14 +1,18 @@
 import { setPlayer, setBattles, setAllBattleStats } from "./state.js";
+import { API_BASE_URL as url } from "./config.js";
 
-const url = "https://api.findendag.dk";
 const errorMessage = document.getElementById("errorMessage");
 const loadingContainer = document.getElementById("cardShowcase");
 
 function showError(message) {
     if (errorMessage) {
-        loadingContainer.className = "";
         errorMessage.textContent = message;
         errorMessage.style.display = "block";
+    }
+
+    if (loadingContainer) {
+        loadingContainer.className = "";
+        loadingContainer.innerHTML = "";
     }
 }
 
