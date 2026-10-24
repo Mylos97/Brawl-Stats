@@ -61,6 +61,12 @@ function createCards(state, totalTrackedPlayers) {
             </div>
         </div>`;
 
+    const brawlerPerformance = `
+        <div class="card card-wide">
+            <h2 class="card-title">Brawler Performance</h2>
+            ${createBrawlerPerformanceTable(state.brawler_stats)}
+        </div>`;
+
     const totalBattles = Number(state.total_battles) || 0;
     const topBrawler = escapeHtml(state.top_brawlers?.[0]?.brawler || "N/A");
     const topGamemode = escapeHtml(state.top_gamemodes?.[0]?.gamemode || "N/A");
@@ -98,7 +104,7 @@ function createCards(state, totalTrackedPlayers) {
         </div>`
 
     container.className = "card-showcase";
-    container.innerHTML = allStats + top5Brawlers + battleHistory + top5GamesModes;
+    container.innerHTML = allStats + top5Brawlers + battleHistory + top5GamesModes + brawlerPerformance;
 }
 
 function createActivePlayerRow(label, player) {
@@ -113,6 +119,44 @@ function createActivePlayerRow(label, player) {
             <span class="info-label">${label}</span>
             <span class="info-value">${value}</span>
         </div>`;
+}
+
+function createBrawlerPerformanceTable(brawlerStats) {
+    if (!Array.isArray(brawlerStats) || brawlerStats.length === 0) {
+        return `<p class="empty-state">No brawler battles have been tracked yet.</p>`;
+    }
+
+    const rows = brawlerStats.map((brawler) => {
+        const games = Number(brawler.games) || 0;
+        const wins = Number(brawler.wins) || 0;
+        const rawWinRate = Number(brawler.win_rate);
+        const winRate = Number.isFinite(rawWinRate)
+            ? rawWinRate
+            : (games > 0 ? Math.round(wins / games * 10000) / 100 : 0);
+
+        return `
+            <tr>
+                <td>${escapeHtml(brawler.brawler || "Unknown")}</td>
+                <td>${games}</td>
+                <td>${wins}</td>
+                <td>${winRate}%</td>
+            </tr>`;
+    }).join("");
+
+    return `
+    <div class="table-container">
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Brawler</th>
+                    <th>Games</th>
+                    <th>Wins</th>
+                    <th>Win Rate</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    </div>`;
 }
 
 function escapeHtml(value) {
